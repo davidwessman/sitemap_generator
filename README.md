@@ -372,10 +372,14 @@ Sitemap Generator uses CarrierWave to support uploading to Amazon S3 store, Rack
      SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
      ```
 
-3. Update your `robots.txt` file to point robots to the remote sitemap index file, e.g:
+3. Add a redirect from an URL on your own domain, e.g.
+   `http://www.example.com/sitemap.xml.gz` and redirect to the remote sitemap
+   file, e.g. `http://s3.amazonaws.com/sitemap-generator/sitemaps/sitemap_index.xml.gz`.
+
+4. Update your `robots.txt` file to point robots to the local sitemap url, e.g:
 
     ```
-    Sitemap: http://s3.amazonaws.com/sitemap-generator/sitemaps/sitemap_index.xml.gz
+    Sitemap: http://www.example.com/sitemap.xml.gz
     ```
 
     You generate your sitemaps as usual using `rake sitemap:refresh`.
@@ -386,9 +390,9 @@ Sitemap Generator uses CarrierWave to support uploading to Amazon S3 store, Rack
     in the sitemap, something that the sitemap rules forbid.  (Since version 3.2 this is no
     longer an issue because [`include_index` is off by default][include_index_change].)
 
-4. Verify to google that you own the s3 url
+5. Verify to Google that your own domain and where the sitemap resides
 
-    In order for Google to use your sitemap, you need to prove you own the s3 bucket through [google webmaster tools](https://www.google.com/webmasters/tools/home?hl=en).  In the example above, you would add the site `http://s3.amazonaws.com/sitemap-generator/sitemaps`.  Once you have verified you own the directory then add your `sitemap.xml.gz` to this list of sitemaps for the site.
+    In order for Google to use your sitemap, you need to prove you own the domain through [google webmaster tools](https://www.google.com/webmasters/tools/home?hl=en).  In the example above, you would add the site `http://www.example.com`.  Once you have verified you own the directory then add your `sitemap.xml.gz` to this list of sitemaps for the site.
 
 ### Generating Multiple Sitemaps
 
